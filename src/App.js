@@ -4,6 +4,7 @@ import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import FiveDayForecast from "./components/FiveDayForecast";
 import UnitToggle from "./components/UnitToggle";
+import WeatherChart from "./components/WeatherChart"; // Import the new WeatherChart component
 import "./App.css";
 
 const API_KEY = "bb0719a0aa0f5b2e1bdd0cda81c1adfc"; 
@@ -53,13 +54,11 @@ function App() {
 
   return (
     <div className="app">
-      {/* Adding a header section */}
       <header className="app-header">
-        <h1>Weather Pulse</h1>
+        <h1>Weather Dashboard</h1>
         <p>Get the current weather and 5-day forecast for any city!</p>
       </header>
 
-      {/* Search bar and weather data */}
       <SearchBar onSearch={handleCitySearch} />
       {error && <p className="error">{error}</p>}
       {weatherData && (
@@ -68,7 +67,12 @@ function App() {
           <CurrentWeather data={weatherData} isCelsius={isCelsius} />
         </>
       )}
-      {forecastData.length > 0 && <FiveDayForecast data={forecastData} isCelsius={isCelsius} />}
+      {forecastData.length > 0 && (
+        <>
+          <FiveDayForecast data={forecastData} isCelsius={isCelsius} />
+          <WeatherChart forecastData={forecastData} isCelsius={isCelsius} /> {/* Add the chart here */}
+        </>
+      )}
     </div>
   );
 }
