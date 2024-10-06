@@ -1,13 +1,15 @@
+// src/App.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import CurrentWeather from "./components/CurrentWeather";
 import FiveDayForecast from "./components/FiveDayForecast";
 import UnitToggle from "./components/UnitToggle";
-import WeatherChart from "./components/WeatherChart"; // Import the new WeatherChart component
+import WeatherChart from "./components/WeatherChart"; // Import the WeatherChart component
+import Footer from "./Footer"; // Import the Footer component
 import "./App.css";
 
-const API_KEY = "bb0719a0aa0f5b2e1bdd0cda81c1adfc"; 
+const API_KEY = "bb0719a0aa0f5b2e1bdd0cda81c1adfc";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -26,7 +28,7 @@ function App() {
   const fetchWeatherData = async (city) => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
       );
       setWeatherData(response.data);
       localStorage.setItem("lastSearchedCity", city);
@@ -39,7 +41,7 @@ function App() {
   const fetchForecastData = async (city) => {
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`
       );
       setForecastData(response.data.list);
       setError(null);
@@ -53,27 +55,44 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Weather Dashboard</h1>
-        <p>Get the current weather and 5-day forecast for any city!</p>
-      </header>
+      <>
+        {/* Background Layer */}
+        <div className="background-gradient">
+          <div className="app">
+            {/* Header */}
+            <header className="app-header">
+              <h1 className="heading">Weather Me</h1>
+            </header>
+            <h1 className="tagline">Sunny Days or Stormy Nights: We’ve Got You Covered!</h1>
+            {/* Search Bar */}
+            <SearchBar onSearch={handleCitySearch} />
 
-      <SearchBar onSearch={handleCitySearch} />
-      {error && <p className="error">{error}</p>}
-      {weatherData && (
-        <>
-          <UnitToggle isCelsius={isCelsius} setIsCelsius={setIsCelsius} />
-          <CurrentWeather data={weatherData} isCelsius={isCelsius} />
-        </>
-      )}
-      {forecastData.length > 0 && (
-        <>
-          <FiveDayForecast data={forecastData} isCelsius={isCelsius} />
-          <WeatherChart forecastData={forecastData} isCelsius={isCelsius} /> {/* Add the chart here */}
-        </>
-      )}
-    </div>
+            {/* Error Handling */}
+            {error && <p className="error">{error}</p>}
+
+            {/* Weather Data Display */}
+            {weatherData && (
+                <>
+                  <UnitToggle isCelsius={isCelsius} setIsCelsius={setIsCelsius} />
+                  {/* Weather Container for Current Weather and Forecast */}
+                  <div className="weather-container">
+                    <CurrentWeather data={weatherData} isCelsius={isCelsius} />
+                    {forecastData.length > 0 && (
+                        <FiveDayForecast data={forecastData} isCelsius={isCelsius} />
+                    )}
+                  </div>
+                </>
+            )}
+
+            {forecastData.length > 0 && (
+                <WeatherChart forecastData={forecastData} isCelsius={isCelsius} />
+            )}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <Footer />
+      </>
   );
 }
 

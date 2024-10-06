@@ -34,7 +34,7 @@ const CurrentWeather = ({ data, isCelsius }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        color: "#fff",
+        color: "#323232",
         borderRadius: "10px",
     };
 
