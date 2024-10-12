@@ -287,6 +287,13 @@ html {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .current-weather h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  .weather-container{
+    display: grid;
+  }
   .five-day-forecast {
     flex-wrap: wrap;
     justify-content: center;
@@ -294,7 +301,11 @@ html {
 
   .forecast-card {
     margin: 10px;
-    width: 80px;
+    width: 100px;
+    height: 150px;
+  }
+  .forecast-card p{
+    font-size: 0.85rem;
   }
 
   .forecast-card h3 {
