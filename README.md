@@ -4,7 +4,7 @@
 
 ## Demo
 
-Check out the live demo of the Weather Dashboard here: [Weather Dashboard Demo](https://weather-dashboard-vgly.vercel.app/)
+Check out the live demo of the Weather Dashboard here: [Weather Dashboard Demo]([https://weather-dashboard-vgly.vercel.app/](https://weather-me-sigma.vercel.app/))
 
 ## Description
 
